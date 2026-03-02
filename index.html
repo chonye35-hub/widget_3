@@ -4,21 +4,27 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- 🔥 갈무리 폰트 안정 버전 -->
 <link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/Galmuri9.css" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   background:#ffffff;
-  min-height:100vh;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   font-family:'Galmuri9', monospace;
+  overflow:hidden;
 }
 
-/* 🔥 완전 중앙 고정 */
+/* 🔥 스케일 기준 박스 */
+.wrapper{
+  width:500px;   /* 🔥 기준 디자인 폭 */
+  transform-origin: top center;
+}
+
+/* 중앙정렬 */
 .container{
   display:flex;
   flex-direction:column;
@@ -28,12 +34,12 @@ body{
 /* 말풍선 */
 .bubble{
   display:inline-block;
-  padding:50px 80px 42px 80px; /* 🔥 아래만 조금 줄임 */
+  padding:50px 80px 42px 80px;
   font-size:20px;
   text-align:center;
   white-space:pre-line;
   position:relative;
-  margin-bottom:30px; /* 🔥 캐릭터와 간격 */
+  margin-bottom:30px;
 
   background:
     url("2.png") repeat-x top,
@@ -46,7 +52,6 @@ body{
   image-rendering:pixelated;
 }
 
-/* 코너 */
 .bubble::before,
 .bubble::after{
   content:"";
@@ -88,7 +93,6 @@ body{
   image-rendering:pixelated;
 }
 
-/* 캐릭터 */
 .character{
   width:200px;
   image-rendering:pixelated;
@@ -98,18 +102,18 @@ body{
 
 <body>
 
-<div class="container">
+<div class="wrapper" id="wrapper">
+  <div class="container">
 
-  <!-- 🔥 말풍선 위 -->
-  <div class="bubble" id="speech">
-    안녕!
-    <div class="corner-bl"></div>
-    <div class="corner-br"></div>
+    <div class="bubble" id="speech">
+      안녕!
+      <div class="corner-bl"></div>
+      <div class="corner-br"></div>
+    </div>
+
+    <img src="character.png" class="character"/>
+
   </div>
-
-  <!-- 🔥 캐릭터 아래 -->
-  <img src="character.png" class="character"/>
-
 </div>
 
 <script>
@@ -117,6 +121,16 @@ const params = new URLSearchParams(window.location.search);
 let text = params.get("text") || "안녕!";
 text = text.replace(/\\n/g, "\n");
 document.getElementById("speech").childNodes[0].nodeValue = text;
+
+/* 🔥 자동 스케일 계산 */
+function resize() {
+  const wrapper = document.getElementById("wrapper");
+  const scale = window.innerWidth / 500; 
+  wrapper.style.transform = `scale(${scale})`;
+}
+
+resize();
+window.addEventListener("resize", resize);
 </script>
 
 </body>
