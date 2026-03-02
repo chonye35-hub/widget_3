@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dot Talk Widget</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #ffffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Press Start 2P', monospace;
+}
+
+/* 전체 박스 */
+.wrapper {
+  width: 260px;
+  text-align: center;
+}
+
+/* 캐릭터 */
+.character {
+  width: 180px;
+  image-rendering: pixelated; /* 도트 깨짐 방지 */
+  margin-bottom: 10px;
+}
+
+/* 도트 대사창 */
+.dialogue {
+  background: white;
+  border: 4px solid black;
+  padding: 12px;
+  font-size: 10px;
+  line-height: 1.6;
+  min-height: 60px;
+  text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <img src="character.png" class="character">
+  <div class="dialogue" id="dialogue">
+    ...
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const text = params.get("text") || "안녕!";
+document.getElementById("dialogue").innerText = decodeURIComponent(text);
+</script>
+
+</body>
+</html>
