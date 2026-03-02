@@ -4,10 +4,13 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<!-- 갈무리 폰트 정상 적용 -->
 <style>
 @font-face {
   font-family: 'Galmuri';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/Galmuri9.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body{
@@ -16,37 +19,35 @@ body{
   height:100vh;
   display:flex;
   justify-content:center;
-  align-items:flex-end;
+  align-items:center;
   font-family:'Galmuri', monospace;
 }
 
 .container{
-  position:relative;
   text-align:center;
+  position:relative;
 }
 
 .character{
   width:200px;
   image-rendering:pixelated;
+  margin-bottom:20px;
 }
 
 /* ========================= */
-/* 💎 NEW 말풍선 구조 */
+/* 💎 말풍선 */
 /* ========================= */
 
 .bubble{
-  position:absolute;
-  bottom:230px;
-  left:50%;
-  transform:translateX(-50%);
   display:inline-block;
-  padding:40px 60px; /* 🔥 여백 넉넉하게 */
-  white-space:nowrap;
+  padding:50px 80px; /* 🔥 여백 넉넉 */
   font-size:20px;
   text-align:center;
+  white-space:pre-line; /* 🔥 엔터 지원 */
   image-rendering:pixelated;
+  position:relative;
 
-  /* 🔥 가운데 배경 반복 */
+  /* 테두리 반복 */
   background:
     url("2.png") repeat-x top,
     url("8.png") repeat-x bottom,
@@ -68,26 +69,26 @@ body{
 }
 
 /* 코너 */
-.bubble::before,
-.bubble::after{
+.bubble::before{
   content:"";
   position:absolute;
+  top:0;
+  left:0;
   width:25px;
   height:25px;
-  background-size:contain;
+  background:url("1.png") no-repeat;
   image-rendering:pixelated;
 }
 
-.bubble::before{
-  top:0;
-  left:0;
-  background:url("1.png") no-repeat;
-}
-
 .bubble::after{
+  content:"";
+  position:absolute;
   top:0;
   right:0;
+  width:25px;
+  height:25px;
   background:url("3.png") no-repeat;
+  image-rendering:pixelated;
 }
 
 .corner-bl{
@@ -109,19 +110,6 @@ body{
   background:url("9.png") no-repeat;
   image-rendering:pixelated;
 }
-
-/* 🔥 꼬리 */
-.tail{
-  position:absolute;
-  bottom:-25px;
-  left:50%;
-  transform:translateX(-50%);
-  width:25px;
-  height:25px;
-  background:url("tail.png") no-repeat;
-  image-rendering:pixelated;
-}
-
 </style>
 </head>
 
@@ -129,20 +117,25 @@ body{
 
 <div class="container">
 
+  <!-- 🔽 캐릭터 위 -->
+  <img src="character.png" class="character"/>
+
+  <!-- 🔽 말풍선 아래로 이동 -->
   <div class="bubble" id="speech">
     안녕!
     <div class="corner-bl"></div>
     <div class="corner-br"></div>
-    <div class="tail"></div>
   </div>
-
-  <img src="character.png" class="character"/>
 
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const text = params.get("text") || "안녕!";
+let text = params.get("text") || "안녕!";
+
+/* 🔥 엔터 처리 */
+text = text.replace(/\\n/g, "\n");
+
 document.getElementById("speech").childNodes[0].nodeValue = text;
 </script>
 
