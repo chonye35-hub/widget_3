@@ -14,27 +14,31 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  font-family:'Galmuri9', monospace;
   overflow:hidden;
+  font-family:'Galmuri9', monospace;
 }
 
 /* 🔥 스케일 기준 박스 */
 .wrapper{
-  width:500px;   /* 🔥 기준 디자인 폭 */
-  transform-origin: top center;
+  width:500px;          /* 기준 디자인 폭 */
+  height:auto;
+  transform-origin:center center;
 }
 
-/* 중앙정렬 */
+/* 내부 정렬 */
 .container{
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* 말풍선 */
+/* ========================= */
+/* 💎 말풍선 */
+/* ========================= */
+
 .bubble{
   display:inline-block;
-  padding:50px 80px 42px 80px;
+  padding:50px 80px 42px 80px; /* 아래 살짝 줄임 */
   font-size:20px;
   text-align:center;
   white-space:pre-line;
@@ -93,6 +97,7 @@ body{
   image-rendering:pixelated;
 }
 
+/* 캐릭터 */
 .character{
   width:200px;
   image-rendering:pixelated;
@@ -117,19 +122,28 @@ body{
 </div>
 
 <script>
+/* 🔥 텍스트 처리 */
 const params = new URLSearchParams(window.location.search);
 let text = params.get("text") || "안녕!";
 text = text.replace(/\\n/g, "\n");
 document.getElementById("speech").childNodes[0].nodeValue = text;
 
-/* 🔥 자동 스케일 계산 */
-function resize() {
+/* 🔥 완전 반응형 스케일 */
+function resize(){
   const wrapper = document.getElementById("wrapper");
-  const scale = window.innerWidth / 500; 
+
+  const designWidth = 500;
+  const designHeight = wrapper.offsetHeight;
+
+  const scaleX = window.innerWidth / designWidth;
+  const scaleY = window.innerHeight / designHeight;
+
+  const scale = Math.min(scaleX, scaleY);
+
   wrapper.style.transform = `scale(${scale})`;
 }
 
-resize();
+window.addEventListener("load", resize);
 window.addEventListener("resize", resize);
 </script>
 
