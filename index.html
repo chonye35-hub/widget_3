@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>9-Slice Dot Bubble</title>
+
+<link href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
@@ -14,48 +22,83 @@ body {
   text-align: center;
 }
 
+/* 캐릭터 */
 .character {
   width: 180px;
   image-rendering: pixelated;
 }
 
-/* 🔥 9-slice 말풍선 */
+/* 🔥 말풍선 */
 .bubble {
   position: absolute;
-  bottom: 200px;
+  bottom: 220px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(4); /* 🔥 4배 확대 */
+  transform-origin: bottom center;
 
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto 1fr auto;
-
-  font-size: 18px;
-  text-align: center;
+  grid-template-columns: 5px auto 5px;
+  grid-template-rows: 5px auto 5px;
 }
 
-/* 각 조각 */
+/* 모든 조각 기본 */
 .bubble div {
+  width: 5px;
+  height: 5px;
   image-rendering: pixelated;
 }
 
 /* 코너 */
-.tl { background: url("1.png"); width: 32px; height: 32px; }
-.t  { background: url("2.png") repeat-x; height: 32px; }
-.tr { background: url("3.png"); width: 32px; height: 32px; }
+.tl { background: url("1.png") no-repeat; }
+.t  { background: url("2.png") repeat-x; }
+.tr { background: url("3.png") no-repeat; }
 
-.l  { background: url("4.png") repeat-y; width: 32px; }
-.r  { background: url("6.png") repeat-y; width: 32px; }
+.l  { background: url("4.png") repeat-y; }
+.r  { background: url("6.png") repeat-y; }
 
-.bl { background: url("7.png"); width: 32px; height: 32px; }
-.b  { background: url("8.png") repeat-x; height: 32px; }
-.br { background: url("9.png"); width: 32px; height: 32px; }
+.bl { background: url("7.png") no-repeat; }
+.b  { background: url("8.png") repeat-x; }
+.br { background: url("9.png") no-repeat; }
 
-/* 가운데 텍스트 영역 */
+/* 가운데 텍스트 */
 .center {
   background: white;
-  padding: 16px 20px;
+  padding: 8px 10px;
+  font-size: 4px; /* scale 4 되니까 실제 16px처럼 보임 */
+  text-align: center;
   white-space: pre-wrap;
   word-break: keep-all;
 }
 </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="bubble">
+    <div class="tl"></div>
+    <div class="t"></div>
+    <div class="tr"></div>
+
+    <div class="l"></div>
+    <div class="center" id="bubbleText">...</div>
+    <div class="r"></div>
+
+    <div class="bl"></div>
+    <div class="b"></div>
+    <div class="br"></div>
+  </div>
+
+  <img src="character.png" class="character">
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const text = params.get("text") || "안녕!";
+document.getElementById("bubbleText").innerText = decodeURIComponent(text);
+</script>
+
+</body>
+</html>
