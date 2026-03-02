@@ -31,40 +31,42 @@ body {
 /* 🔥 말풍선 */
 .bubble {
   position: absolute;
-  bottom: 220px;
+  bottom: 240px;
   left: 50%;
-  transform: translateX(-50%) scale(4); /* 🔥 4배 확대 */
-  transform-origin: bottom center;
+  transform: translateX(-50%);
 
   display: grid;
-  grid-template-columns: 5px auto 5px;
-  grid-template-rows: 5px auto 5px;
+  grid-template-columns: 25px auto 25px;
+  grid-template-rows: 25px auto 25px;
 }
 
-/* 모든 조각 기본 */
+/* 모든 조각 */
 .bubble div {
-  width: 5px;
-  height: 5px;
+  width: 25px;
+  height: 25px;
   image-rendering: pixelated;
+  background-size: 25px 25px;
 }
 
 /* 코너 */
 .tl { background: url("1.png") no-repeat; }
-.t  { background: url("2.png") repeat-x; }
 .tr { background: url("3.png") no-repeat; }
-
-.l  { background: url("4.png") repeat-y; }
-.r  { background: url("6.png") repeat-y; }
-
 .bl { background: url("7.png") no-repeat; }
-.b  { background: url("8.png") repeat-x; }
 .br { background: url("9.png") no-repeat; }
+
+/* 상하 반복 */
+.t { background: url("2.png") repeat-x; }
+.b { background: url("8.png") repeat-x; }
+
+/* 좌우 반복 */
+.l { background: url("4.png") repeat-y; }
+.r { background: url("6.png") repeat-y; }
 
 /* 가운데 텍스트 */
 .center {
   background: white;
-  padding: 8px 10px;
-  font-size: 4px; /* scale 4 되니까 실제 16px처럼 보임 */
+  padding: 14px 20px;
+  font-size: 18px;
   text-align: center;
   white-space: pre-wrap;
   word-break: keep-all;
