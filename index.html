@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dot Talk Widget</title>
+<title>Dot Bubble Widget</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
@@ -17,28 +17,48 @@ body {
   font-family: 'Press Start 2P', monospace;
 }
 
-/* 전체 박스 */
 .wrapper {
-  width: 260px;
+  position: relative;
   text-align: center;
 }
 
 /* 캐릭터 */
 .character {
   width: 180px;
-  image-rendering: pixelated; /* 도트 깨짐 방지 */
-  margin-bottom: 10px;
+  image-rendering: pixelated;
 }
 
-/* 도트 대사창 */
-.dialogue {
+/* 🔥 도트 말풍선 */
+.bubble {
+  position: absolute;
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+
   background: white;
   border: 4px solid black;
-  padding: 12px;
-  font-size: 10px;
-  line-height: 1.6;
-  min-height: 60px;
-  text-align: left;
+  padding: 16px 20px;
+
+  font-size: 16px; /* 더 크게 */
+  white-space: nowrap; /* 자동 줄바꿈 제거 */
+  
+  display: inline-block;
+}
+
+/* 🔥 도트 꼬리 (계단형) */
+.tail {
+  position: absolute;
+  bottom: 184px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: black;
+  box-shadow:
+    8px 8px 0 0 black,
+    16px 16px 0 0 black,
+    8px 8px 0 4px white,
+    16px 16px 0 4px white;
 }
 </style>
 </head>
@@ -46,16 +66,15 @@ body {
 <body>
 
 <div class="wrapper">
+  <div class="bubble" id="bubble">...</div>
+  <div class="tail"></div>
   <img src="character.png" class="character">
-  <div class="dialogue" id="dialogue">
-    ...
-  </div>
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const text = params.get("text") || "안녕!";
-document.getElementById("dialogue").innerText = decodeURIComponent(text);
+document.getElementById("bubble").innerText = decodeURIComponent(text);
 </script>
 
 </body>
