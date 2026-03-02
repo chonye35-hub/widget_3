@@ -4,74 +4,124 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- 갈무리 폰트 -->
-<link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/Galmuri9.woff2" as="font" type="font/woff2" crossorigin>
-
 <style>
-body {
-  margin: 0;
-  background: #ffffff; /* 완전 흰 배경 */
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 100vh;
-  font-family: 'Galmuri9', monospace;
+@font-face {
+  font-family: 'Galmuri';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/Galmuri9.woff2') format('woff2');
 }
 
-/* 캐릭터 영역 */
-.container {
-  position: relative;
-  text-align: center;
+body{
+  margin:0;
+  background:#ffffff;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  font-family:'Galmuri', monospace;
 }
 
-.character {
-  width: 200px;
-  image-rendering: pixelated;
+.container{
+  position:relative;
+  text-align:center;
+}
+
+.character{
+  width:200px;
+  image-rendering:pixelated;
 }
 
 /* ========================= */
-/* 🔥 9-SLICE 말풍선 */
+/* 💎 NEW 말풍선 구조 */
 /* ========================= */
 
-.bubble {
-  position: absolute;
-  bottom: 220px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-grid; /* 🔥 핵심 */
-  grid-template-columns: 25px auto 25px;
-  grid-template-rows: 25px auto 25px;
-}
+.bubble{
+  position:absolute;
+  bottom:230px;
+  left:50%;
+  transform:translateX(-50%);
+  display:inline-block;
+  padding:40px 60px; /* 🔥 여백 넉넉하게 */
+  white-space:nowrap;
+  font-size:20px;
+  text-align:center;
+  image-rendering:pixelated;
 
-.bubble div {
-  width: 25px;
-  height: 25px;
-  image-rendering: pixelated;
+  /* 🔥 가운데 배경 반복 */
+  background:
+    url("2.png") repeat-x top,
+    url("8.png") repeat-x bottom,
+    url("4.png") repeat-y left,
+    url("6.png") repeat-y right,
+    #ffffff;
+
+  background-position:
+    top left,
+    bottom left,
+    top left,
+    top right;
+
+  background-size:
+    25px 25px,
+    25px 25px,
+    25px 25px,
+    25px 25px;
 }
 
 /* 코너 */
-.tl { background: url("1.png") no-repeat; }
-.tr { background: url("3.png") no-repeat; }
-.bl { background: url("7.png") no-repeat; }
-.br { background: url("9.png") no-repeat; }
-
-/* 반복 */
-.t { background: url("2.png") repeat-x; }
-.b { background: url("8.png") repeat-x; }
-.l { background: url("4.png") repeat-y; }
-.r { background: url("6.png") repeat-y; }
-
-/* 중앙 텍스트 영역 */
-.center {
-  background: #ffffff;
-  padding: 14px 20px;
-  font-size: 18px;
-  text-align: center;      /* 가운데 정렬 */
-  white-space: nowrap;     /* 🔥 자동 줄바꿈 없음 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.bubble::before,
+.bubble::after{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:25px;
+  background-size:contain;
+  image-rendering:pixelated;
 }
+
+.bubble::before{
+  top:0;
+  left:0;
+  background:url("1.png") no-repeat;
+}
+
+.bubble::after{
+  top:0;
+  right:0;
+  background:url("3.png") no-repeat;
+}
+
+.corner-bl{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:25px;
+  height:25px;
+  background:url("7.png") no-repeat;
+  image-rendering:pixelated;
+}
+
+.corner-br{
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:25px;
+  height:25px;
+  background:url("9.png") no-repeat;
+  image-rendering:pixelated;
+}
+
+/* 🔥 꼬리 */
+.tail{
+  position:absolute;
+  bottom:-25px;
+  left:50%;
+  transform:translateX(-50%);
+  width:25px;
+  height:25px;
+  background:url("tail.png") no-repeat;
+  image-rendering:pixelated;
+}
+
 </style>
 </head>
 
@@ -79,30 +129,21 @@ body {
 
 <div class="container">
 
-  <!-- 🔥 말풍선 -->
-  <div class="bubble">
-    <div class="tl"></div>
-    <div class="t"></div>
-    <div class="tr"></div>
-
-    <div class="l"></div>
-    <div class="center" id="speech"></div>
-    <div class="r"></div>
-
-    <div class="bl"></div>
-    <div class="b"></div>
-    <div class="br"></div>
+  <div class="bubble" id="speech">
+    안녕!
+    <div class="corner-bl"></div>
+    <div class="corner-br"></div>
+    <div class="tail"></div>
   </div>
 
-  <!-- 캐릭터 이미지 -->
-  <img src="character.png" class="character" />
+  <img src="character.png" class="character"/>
 
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const text = params.get("text") || "안녕!";
-document.getElementById("speech").innerText = text;
+document.getElementById("speech").childNodes[0].nodeValue = text;
 </script>
 
 </body>
