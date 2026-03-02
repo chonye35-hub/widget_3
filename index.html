@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>Dot Bubble Widget</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<!-- 🔥 Galmuri 한글 도트폰트 -->
+<link href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css" rel="stylesheet">
 
 <style>
 body {
@@ -14,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Press Start 2P', monospace;
+  font-family: 'Galmuri9', monospace;
 }
 
 .wrapper {
@@ -39,13 +40,16 @@ body {
   border: 4px solid black;
   padding: 16px 20px;
 
-  font-size: 16px; /* 더 크게 */
-  white-space: nowrap; /* 자동 줄바꿈 제거 */
-  
-  display: inline-block;
+  font-size: 18px;
+  line-height: 1.6;
+
+  max-width: 320px; /* 너무 길어지지 않게 */
+  word-break: keep-all;
+  white-space: pre-wrap; /* %0A 줄바꿈 지원 */
+  text-align: left;
 }
 
-/* 🔥 도트 꼬리 (계단형) */
+/* 🔥 도트 계단 꼬리 */
 .tail {
   position: absolute;
   bottom: 184px;
