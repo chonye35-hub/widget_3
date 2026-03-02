@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>9-Slice Dot Bubble</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css" rel="stylesheet">
+<!-- 갈무리 폰트 -->
+<link href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2107@1.1/Galmuri9.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
 body {
   margin: 0;
-  background: #ffffff;
-  height: 100vh;
+  background: #ffffff; /* 완전 흰 배경 */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  height: 100vh;
   font-family: 'Galmuri9', monospace;
 }
 
-.wrapper {
+/* 캐릭터 영역 */
+.container {
   position: relative;
   text-align: center;
 }
 
-/* 캐릭터 */
 .character {
-  width: 180px;
+  width: 200px;
   image-rendering: pixelated;
 }
 
-/* 🔥 말풍선 */
+/* ========================= */
+/* 🔥 9-SLICE 말풍선 */
+/* ========================= */
+
 .bubble {
   position: absolute;
-  bottom: 240px;
+  bottom: 220px;
   left: 50%;
   transform: translateX(-50%);
-
-  display: grid;
+  display: inline-grid; /* 🔥 핵심 */
   grid-template-columns: 25px auto 25px;
   grid-template-rows: 25px auto 25px;
 }
 
-/* 모든 조각 */
 .bubble div {
   width: 25px;
   height: 25px;
   image-rendering: pixelated;
-  background-size: 25px 25px;
 }
 
 /* 코너 */
@@ -54,37 +55,38 @@ body {
 .bl { background: url("7.png") no-repeat; }
 .br { background: url("9.png") no-repeat; }
 
-/* 상하 반복 */
+/* 반복 */
 .t { background: url("2.png") repeat-x; }
 .b { background: url("8.png") repeat-x; }
-
-/* 좌우 반복 */
 .l { background: url("4.png") repeat-y; }
 .r { background: url("6.png") repeat-y; }
 
-/* 가운데 텍스트 */
+/* 중앙 텍스트 영역 */
 .center {
-  background: white;
+  background: #ffffff;
   padding: 14px 20px;
   font-size: 18px;
-  text-align: center;
-  white-space: pre-wrap;
-  word-break: keep-all;
+  text-align: center;      /* 가운데 정렬 */
+  white-space: nowrap;     /* 🔥 자동 줄바꿈 없음 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<div class="container">
 
+  <!-- 🔥 말풍선 -->
   <div class="bubble">
     <div class="tl"></div>
     <div class="t"></div>
     <div class="tr"></div>
 
     <div class="l"></div>
-    <div class="center" id="bubbleText">...</div>
+    <div class="center" id="speech"></div>
     <div class="r"></div>
 
     <div class="bl"></div>
@@ -92,14 +94,15 @@ body {
     <div class="br"></div>
   </div>
 
-  <img src="character.png" class="character">
+  <!-- 캐릭터 이미지 -->
+  <img src="character.png" class="character" />
 
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const text = params.get("text") || "안녕!";
-document.getElementById("bubbleText").innerText = decodeURIComponent(text);
+document.getElementById("speech").innerText = text;
 </script>
 
 </body>
