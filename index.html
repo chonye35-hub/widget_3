@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Dot Bubble Widget</title>
-
-<!-- 🔥 Galmuri 한글 도트폰트 -->
-<link href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css" rel="stylesheet">
-
 <style>
 body {
   margin: 0;
@@ -23,63 +14,48 @@ body {
   text-align: center;
 }
 
-/* 캐릭터 */
 .character {
   width: 180px;
   image-rendering: pixelated;
 }
 
-/* 🔥 도트 말풍선 */
+/* 🔥 9-slice 말풍선 */
 .bubble {
   position: absolute;
   bottom: 200px;
   left: 50%;
   transform: translateX(-50%);
 
-  background: white;
-  border: 4px solid black;
-  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
 
   font-size: 18px;
-  line-height: 1.6;
-
-  max-width: 320px; /* 너무 길어지지 않게 */
-  word-break: keep-all;
-  white-space: pre-wrap; /* %0A 줄바꿈 지원 */
-  text-align: left;
+  text-align: center;
 }
 
-/* 🔥 도트 계단 꼬리 */
-.tail {
-  position: absolute;
-  bottom: 184px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: black;
-  box-shadow:
-    8px 8px 0 0 black,
-    16px 16px 0 0 black,
-    8px 8px 0 4px white,
-    16px 16px 0 4px white;
+/* 각 조각 */
+.bubble div {
+  image-rendering: pixelated;
+}
+
+/* 코너 */
+.tl { background: url("1.png"); width: 32px; height: 32px; }
+.t  { background: url("2.png") repeat-x; height: 32px; }
+.tr { background: url("3.png"); width: 32px; height: 32px; }
+
+.l  { background: url("4.png") repeat-y; width: 32px; }
+.r  { background: url("6.png") repeat-y; width: 32px; }
+
+.bl { background: url("7.png"); width: 32px; height: 32px; }
+.b  { background: url("8.png") repeat-x; height: 32px; }
+.br { background: url("9.png"); width: 32px; height: 32px; }
+
+/* 가운데 텍스트 영역 */
+.center {
+  background: white;
+  padding: 16px 20px;
+  white-space: pre-wrap;
+  word-break: keep-all;
 }
 </style>
-</head>
-
-<body>
-
-<div class="wrapper">
-  <div class="bubble" id="bubble">...</div>
-  <div class="tail"></div>
-  <img src="character.png" class="character">
-</div>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-const text = params.get("text") || "안녕!";
-document.getElementById("bubble").innerText = decodeURIComponent(text);
-</script>
-
-</body>
-</html>
